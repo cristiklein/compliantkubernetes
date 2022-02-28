@@ -20,7 +20,7 @@ jobs:
 
     - name: Deploy
       working-directory: user-demo
-      with:
+      env:
         KUBECONFIG_CONTENTS_B64: ${env.KUBECONFIG_CONTENTS_B64}
       run: |-
         echo $KUBECONFIG_CONTENTS_B64 | base64 -d > ~/.kube/config
