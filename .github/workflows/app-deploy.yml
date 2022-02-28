@@ -23,6 +23,7 @@ jobs:
       env:
         KUBECONFIG_CONTENTS_B64: ${{ secrets.KUBECONFIG_CONTENTS_B64 }}
       run: |-
+        mkdir -p ~/.kube
         echo $KUBECONFIG_CONTENTS_B64 | base64 -d > ~/.kube/config
 
         helm upgrade \
