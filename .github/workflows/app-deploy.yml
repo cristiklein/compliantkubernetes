@@ -11,7 +11,7 @@ env:
 
 jobs:
   app-deploy:
-    name: Setup, Build, Publish, and Deploy
+    name: Deploy user-demo
     runs-on: ubuntu-latest
 
     steps:
