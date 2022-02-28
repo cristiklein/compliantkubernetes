@@ -10,7 +10,7 @@ env:
   TAG: v1
 
 jobs:
-  deploy:
+  app-deploy:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
 
@@ -19,11 +19,12 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Deploy
+      working-directory: user-demo
       run: |-
         helm upgrade \
             --install \
             myapp \
-            user-demo/deploy/ck8s-user-demo/ \
+            deploy/ck8s-user-demo/ \
             --set image.repository=harbor.$DOMAIN/$REGISTRY_PROJECT/ck8s-user-demo \
             --set image.tag=$TAG \
             --set ingress.hostname=demo.$DOMAIN
