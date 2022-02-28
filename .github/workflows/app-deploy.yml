@@ -25,6 +25,7 @@ jobs:
       run: |-
         mkdir -p ~/.kube
         echo $KUBECONFIG_CONTENTS_B64 | base64 -d > ~/.kube/config
+        chmod 0400 ~/.kube/config
 
         helm upgrade \
             --install \
