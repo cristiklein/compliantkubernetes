@@ -24,7 +24,7 @@ jobs:
         KUBECONFIG_CONTENTS_B64: ${{ secrets.KUBECONFIG_CONTENTS_B64 }}
       run: |-
         mkdir -p ~/.kube
-        echo $KUBECONFIG_CONTENTS_B64 | base64 -d > ~/.kube/config
+        echo $KUBECONFIG_CONTENTS_B64 | base64 -d --ignore-garbage > ~/.kube/config
         chmod 0400 ~/.kube/config
 
     - name: Deploy
