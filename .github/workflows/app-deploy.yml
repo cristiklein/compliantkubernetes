@@ -1,14 +1,19 @@
+# NOTE! This action assumes that you will use `git tag` to trigger deployment.
+# In particular, we use the git tag as the container image tag.
+# Change on.push and env.TAG if your change management strategy is different.
+
 name: app-deploy
 
 on:
   push:
-    branches: [ main ]
+    tags:
+      - v*
 
 env:
   DOCKER_USER: 'robot$demo+ci-cd'
   DOMAIN: ckdemo.a1ck.io
   REGISTRY_PROJECT: demo
-  TAG: v1
+  TAG: ${{ env.GITHUB_REF_NAME }}
 
 jobs:
   app-deploy:
