@@ -36,6 +36,7 @@ jobs:
           | docker login --username $DOCKER_USER --password-stdin harbor.$DOMAIN
 
     - name: Build and push container image
+      working-directory: user-demo
       run: |-
         docker build -t harbor.$DOMAIN/$REGISTRY_PROJECT/ck8s-user-demo:$TAG .
         docker push harbor.$DOMAIN/$REGISTRY_PROJECT/ck8s-user-demo:$TAG
