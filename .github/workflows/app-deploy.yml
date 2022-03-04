@@ -13,7 +13,7 @@ env:
   DOCKER_USER: 'robot$demo+ci-cd'
   DOMAIN: ckdemo.a1ck.io
   REGISTRY_PROJECT: demo
-  TAG: ${{ github.ref }}
+  TAG: ${{ github.ref_name }}
 
 jobs:
   app-deploy:
