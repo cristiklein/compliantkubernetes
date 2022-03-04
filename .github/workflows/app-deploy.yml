@@ -5,6 +5,7 @@ on:
     branches: [ main ]
 
 env:
+  DOCKER_USER: 'robot$demo+ci-cd'
   DOMAIN: ckdemo.a1ck.io
   REGISTRY_PROJECT: demo
   TAG: v1
@@ -26,6 +27,18 @@ jobs:
         mkdir -p ~/.kube
         echo $KUBECONFIG_CONTENTS_B64 | base64 -d --ignore-garbage > ~/.kube/config
         chmod 0400 ~/.kube/config
+
+    - name: Login to container registry
+      env:
+        DOCKER_PASSWORD: {{ secrets.DOCKER_PASSWORD }}
+      run: |-
+        echo $DOCKER_PASSWORD \
+          | docker login --username $DOCKER_USER --password-stdin harbor.$DOMAIN
+
+    - name: Build and push container image
+      run: |-
+        docker build -t harbor.$DOMAIN/$REGISTRY_PROJECT/ck8s-user-demo:$TAG .
+        docker push harbor.$DOMAIN/$REGISTRY_PROJECT/ck8s-user-demo:$TAG
 
     - name: Deploy
       working-directory: user-demo
